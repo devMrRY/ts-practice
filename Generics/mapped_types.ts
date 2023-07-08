@@ -95,7 +95,7 @@
 
   type Config = EventConfig<SquareEvent | CircleEvent>;
 
-  // check pi
+  // check pi = true
   type ExtractPII<Type> = {
     [Property in keyof Type]: Type[Property] extends { pii: true }
       ? true
