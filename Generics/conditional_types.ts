@@ -45,7 +45,7 @@
 
 // ******************************* infer **********************************
 {
-  // infer keyword is used here to extract type of T
+  // infer keyword is used here to extract type of T and infer can only be used with conditional statements
   type Flatten<T> = T extends Array<infer Item> ? Item : T;
 
   type GetTypeOf<T> = T extends (...args: never[]) => infer Return
