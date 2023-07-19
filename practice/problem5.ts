@@ -1,34 +1,36 @@
 /**
- * https://dev.to/macsikora/advanced-typescript-exercises-question-5-5b5f
- * 
- * We have function getUser which gets Config object, the object defines what fields of User function will return. 
- * If for example config says { name: true, lastname: false } it means returned object should have name field non-optional but no field lastname. 
- * Current User type is very broad type of the return, we need to narrow it down depending on the config passed as argument of getUser
+ * https://dev.to/macsikora/advanced-typescript-exercises-question-6-1hl3
+ *
+ * The exercise is about getting all value types from the tuple type.
  */
 
-type gtype = () => void;
-type gtype1<T> = (a: T) => void;
-type gtype2 = <T extends string | number>(a: T) => void;
+type NaiveFlat<T extends any[]> = unknown; // your code
 
-const fun1: gtype = () => {};
-const fun2: gtype1<string> = (a: string) => {};
-const fun3: gtype2 = <T>(a: T) => {};
+type Naive = [["a"], ["b", "c"], ["d"]];
+type NaiveResult = NaiveFlat<Naive>;
+// should evaluate to "a" | "b" | "c" | "d"
 
-declare function fun11<gtype>():void;
-declare function fun22<T>(a: T): void;
-declare function fun33<T>(a: T):void;
+// solution 1
+{
+  // [number] at the end has a purpose of getting all value types of produced type
+  type NaiveFlat<T extends any[]> = {
+    [key in keyof T]: T[key] extends any[] ? T[key][number] : T[key];
+  }[number];
 
-fun2("");
-fun3<string>("");
-fun3<number>(34);
+  type NaiveResult = NaiveFlat<Naive>;
+}
 
+// harder version of problem
+type DeepFlat<T extends any[]> = unknown; // 🔥 here your code
 
-const feee: gtype2 = fun33;
-feee<number>(34);
-feee<string>("34");
+type Deep = [["a"], ["b", "c"], [["d"]], [[[["e"]]]]];
+type DeepTestResult = DeepFlat<Deep>;
+// should evaluate to "a" | "b" | "c" | "d" | "e"
 
-const foo: gtype1<string> = fun22;
-const foo1: gtype1<number> = fun22;
-
-foo("23");
-foo1(34);
+// solution 2
+{
+  type DeepFlat<T extends any[]> = {
+    [K in keyof T]: T[K] extends any[] ? DeepFlat<T[K]> : T[K];
+  }
+  type DeepTestResult = DeepFlat<Deep>;
+}

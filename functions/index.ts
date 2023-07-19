@@ -29,7 +29,7 @@
 // ***************************** function overloading **********************
 {
   function fun(x: string, y: string): string;
-//   function fun(x: string): boolean; // will return runtime error This overload signature is not compatible with its implementation signature.
+  //   function fun(x: string): boolean; // will return runtime error This overload signature is not compatible with its implementation signature.
   function fun(x: string): string;
   function fun(x: string): string {
     return x;
@@ -142,4 +142,33 @@
     // a.b();
     //   'a' is of type 'unknown'.
   }
+}
+
+declare function fun11<gtype>(): void;
+declare function fun22<T>(a: T): void;
+declare function fun33<T>(a: T): void;
+
+{
+  type gtype = () => void;
+  type gtype1<T> = (a: T) => void;
+  type gtype2 = <T extends string | number>(a: T) => void;
+
+  const fun1: gtype = () => {};
+  const fun2: gtype1<string> = (a: string) => {};
+  const fun3: gtype2 = <T>(a: T) => {};
+
+
+  fun2("");
+  fun3<string>("");
+  fun3<number>(34);
+
+  const feee: gtype2 = fun33;
+  feee<number>(34);
+  feee<string>("34");
+
+  const foo: gtype1<string> = fun22;
+  const foo1: gtype1<number> = fun22;
+
+  foo("23");
+  foo1(34);
 }
