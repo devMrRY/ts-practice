@@ -1,6 +1,6 @@
 // implement custom pick
 
-type MyPick<T, K extends keyof T> = {[Key in K]: T[K]};
+export type MyPick<T, K extends keyof T> = {[Key in K]: T[K]};
 
 interface ITodo {
     title: number;

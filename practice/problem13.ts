@@ -1,6 +1,6 @@
 // IMPORT CONSTANTS AND MAKE UNINION OF ALL CONSTANTS VALUES AND KEYS SEPERATELY
 
-type TActionModule = typeof import('../constants');
+export type TActionModule = typeof import('../constants');
 
-type TActionKeys = keyof TActionModule
-type TActionValues = TActionModule[keyof TActionModule]
+export type TActionKeys = keyof TActionModule
+export type TActionValues = TActionModule[keyof TActionModule]

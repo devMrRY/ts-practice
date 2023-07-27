@@ -1,6 +1,6 @@
 // Deep Partial
 
-type DeepPartial<Thing> = Thing extends Function
+export type DeepPartial<Thing> = Thing extends Function
     ? Thing
     : Thing extends Array<infer ArrayMember>
     ? DeepArrayPartial<ArrayMember>
@@ -8,9 +8,9 @@ type DeepPartial<Thing> = Thing extends Function
     ? DeepObjPartial<Thing>
     : Thing | undefined
 
-interface DeepArrayPartial<Thing> extends Array<DeepPartial<Thing>> {}
+export interface DeepArrayPartial<Thing> extends Array<DeepPartial<Thing>> {}
 
-type DeepObjPartial<Thing> = {
+export type DeepObjPartial<Thing> = {
     [Key in keyof Thing]?: DeepPartial<Thing[Key]>
 } 
 

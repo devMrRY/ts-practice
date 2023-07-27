@@ -5,7 +5,7 @@ interface ApiData {
   "maps:latitude": string;
 }
 
-type RemoveMapsFromObj<T> = {
+export type RemoveMapsFromObj<T> = {
   [K in keyof T as RemoveKeysPart<K>]: T[K];
 };
 

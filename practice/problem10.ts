@@ -11,7 +11,7 @@ export type Obj = {
 
 // _ExtractedKeys are private default generics used to store things
 
-type ValuesOfKeysStartingWithA<
+export type ValuesOfKeysStartingWithA<
   Obj,
   _ExtractedKeys extends keyof Obj = Extract<keyof Obj, `a${string}`>
 > = {
